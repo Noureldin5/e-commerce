@@ -1,8 +1,8 @@
-package com.example.eCommerce.mapper.Impl;
+package com.example.eCommerce.mapper.user;
 
 import com.example.eCommerce.dto.User.UserRegisterResponse;
 import com.example.eCommerce.entities.User;
-import com.example.eCommerce.mapper.UserMapper;
+import com.example.eCommerce.mapper.user.UserMapper;
 import org.springframework.stereotype.Component;
 
 @Component

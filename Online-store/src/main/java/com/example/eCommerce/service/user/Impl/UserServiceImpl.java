@@ -4,7 +4,7 @@ import com.example.eCommerce.dto.User.UserRegisterRequest;
 import com.example.eCommerce.dto.User.UserRegisterResponse;
 import com.example.eCommerce.entities.User;
 import com.example.eCommerce.exception.NotFoundException;
-import com.example.eCommerce.mapper.UserMapper;
+import com.example.eCommerce.mapper.user.UserMapper;
 import com.example.eCommerce.repositories.UserRepository;
 import com.example.eCommerce.service.user.UserService;
 import lombok.AllArgsConstructor;

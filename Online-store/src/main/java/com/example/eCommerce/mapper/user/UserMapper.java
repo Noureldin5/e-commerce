@@ -1,4 +1,4 @@
-package com.example.eCommerce.mapper;
+package com.example.eCommerce.mapper.user;
 
 import com.example.eCommerce.dto.User.UserRegisterResponse;
 import com.example.eCommerce.entities.User;
