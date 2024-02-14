@@ -18,4 +18,8 @@ public class Product {
 
     @Enumerated(EnumType.STRING)
     private Type type;
+
+    public Object Product(Object productInfo, Integer quantity) {
+        return null;
+    }
 }
