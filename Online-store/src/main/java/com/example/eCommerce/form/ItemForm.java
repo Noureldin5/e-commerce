@@ -3,10 +3,11 @@ package com.example.eCommerce.form;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-/**
- * Created By Zhu Lin on 3/11/2018.
- */
+@Getter
+@Setter
 @Data
 public class ItemForm {
     @Min(value = 1)

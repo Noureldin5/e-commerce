@@ -2,10 +2,12 @@ package com.example.eCommerce.entities;
 
 import com.example.eCommerce.enums.Type;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Entity
 @Data
+@AllArgsConstructor
 @Table(name="products")
 public class Product {
     @Id
@@ -18,6 +20,13 @@ public class Product {
 
     @Enumerated(EnumType.STRING)
     private Type type;
+
+    public Product(Product productInfo, Integer quantity) {
+    }
+
+    public Product() {
+
+    }
 
     public Object Product(Object productInfo, Integer quantity) {
         return null;

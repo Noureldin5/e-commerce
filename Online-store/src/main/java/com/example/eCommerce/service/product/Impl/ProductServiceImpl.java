@@ -11,6 +11,7 @@ import com.example.eCommerce.repositories.ProductRepository;
 import com.example.eCommerce.service.product.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -75,5 +76,15 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductResponse> getAll() {
             return productMapper.toDtoS(productRepository.findAll());
+    }
+
+    @Override
+    public void update(String itemId, Integer quantity, User user) {
+
+    }
+
+    @Override
+    public Product findOne(String productId) {
+        return null;
     }
 }

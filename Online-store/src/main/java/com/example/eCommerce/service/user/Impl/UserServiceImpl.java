@@ -55,4 +55,9 @@ public class UserServiceImpl implements UserService{
             userRepository.deleteById(id);
         }
     }
+
+    @Override
+    public org.springframework.security.core.userdetails.User findOne(String name) {
+        return null;
+    }
 }
