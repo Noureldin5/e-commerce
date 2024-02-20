@@ -46,6 +46,10 @@ public class User implements UserDetails {
     }
 
 
+    @OneToOne(cascade = CascadeType.ALL)
+    private Customer customer;
+
+
     @Override
     public String getPassword() {
         return password;

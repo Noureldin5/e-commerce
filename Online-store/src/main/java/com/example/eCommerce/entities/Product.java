@@ -17,9 +17,13 @@ public class Product {
     private int price;
     private String description;
     private String created_date;
+    private Boolean exist = true;
 
     @Enumerated(EnumType.STRING)
     private Type type;
+
+    @ManyToOne
+    private Customer customer;
 
     public Product(Product productInfo, Integer quantity) {
     }

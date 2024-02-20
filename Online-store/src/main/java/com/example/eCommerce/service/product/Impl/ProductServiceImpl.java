@@ -8,13 +8,16 @@ import com.example.eCommerce.exception.BadRequestException;
 import com.example.eCommerce.exception.NotFoundException;
 import com.example.eCommerce.mapper.product.ProductMapper;
 import com.example.eCommerce.repositories.ProductRepository;
+import com.example.eCommerce.repositories.UserRepository;
+import com.example.eCommerce.service.auth.AuthService;
 import com.example.eCommerce.service.product.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.userdetails.User;
+import com.example.eCommerce.entities.User;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +26,8 @@ import java.util.Optional;
 public class ProductServiceImpl implements ProductService {
     private ProductRepository productRepository;
     private ProductMapper productMapper;
+    private final AuthService authService;
+    private UserRepository userRepository;
 
     private boolean containsType(String type) {
         for (Type type1:Type.values()){
@@ -79,12 +84,17 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void update(String itemId, Integer quantity, User user) {
-
-    }
-
-    @Override
-    public Product findOne(String productId) {
-        return null;
+    public void buy(Long id, String token) {
+        User user = authService.getUsernameFromToken(token);
+        Optional<Product> product = productRepository.findById(id);
+        if (product.isEmpty())
+            throw new NotFoundException("this book sold", HttpStatus.BAD_REQUEST);
+        product.get().setExist(false);
+        List<Product> products = new ArrayList<>();
+        if (!user.getCustomer().getProducts().isEmpty())
+            products = user.getCustomer().getProducts();
+        products.add(product.get());
+        user.getCustomer().setProducts(products);
+        userRepository.save(user);
     }
 }

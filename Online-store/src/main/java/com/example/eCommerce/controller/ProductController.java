@@ -38,4 +38,9 @@ public class ProductController {
     public List<ProductResponse> productResponses(){
         return productService.getAll();
     }
+
+    @PostMapping("/buy/{productId}")
+    public void buy(@PathVariable Long id, @RequestHeader("Authorization") String token){
+        productService.buy(id,token);
+    }
 }

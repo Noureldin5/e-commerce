@@ -22,4 +22,6 @@ public interface ProductService {
     void update(String itemId, Integer quantity, User user);
 
     Product findOne(String productId);
+
+    void buy(Long id, String token);
 }
