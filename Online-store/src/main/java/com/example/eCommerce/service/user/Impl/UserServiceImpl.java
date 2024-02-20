@@ -23,8 +23,7 @@ public class UserServiceImpl implements UserService{
         if (userRequest.getEmail().isEmpty())
             throw new NotFoundException("Username can't be empty" , HttpStatus.BAD_GATEWAY);
         User user = new User();
-        user.setFirstName(userRequest.getFirstName());
-        user.setLastName(userRequest.getLastName());
+        user.setFirstName(userRequest.getName());
         user.setCountry(userRequest.getCountry());
         user.setStreetAddress(userRequest.getStreetAddress());
         user.setTownName(userRequest.getTownName());

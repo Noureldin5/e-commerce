@@ -1,6 +1,5 @@
 package com.example.eCommerce.entities;
 
-import com.example.eCommerce.enums.Type;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,11 +18,14 @@ public class Product {
     private String created_date;
     private Boolean exist = true;
 
-    @Enumerated(EnumType.STRING)
-    private Type type;
-
     @ManyToOne
     private Customer customer;
+
+    @ManyToOne()
+    private Type type;
+
+    @ManyToOne()
+    private Category category;
 
     public Product(Product productInfo, Integer quantity) {
     }

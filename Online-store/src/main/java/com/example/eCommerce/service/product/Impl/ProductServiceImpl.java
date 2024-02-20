@@ -2,12 +2,15 @@ package com.example.eCommerce.service.product.Impl;
 
 import com.example.eCommerce.dto.Product.ProductRequest;
 import com.example.eCommerce.dto.Product.ProductResponse;
+import com.example.eCommerce.entities.Category;
 import com.example.eCommerce.entities.Product;
-import com.example.eCommerce.enums.Type;
+import com.example.eCommerce.entities.Type;
 import com.example.eCommerce.exception.BadRequestException;
 import com.example.eCommerce.exception.NotFoundException;
 import com.example.eCommerce.mapper.product.ProductMapper;
+import com.example.eCommerce.repositories.CategoryRepository;
 import com.example.eCommerce.repositories.ProductRepository;
+import com.example.eCommerce.repositories.TypeRepository;
 import com.example.eCommerce.repositories.UserRepository;
 import com.example.eCommerce.service.auth.AuthService;
 import com.example.eCommerce.service.product.ProductService;
@@ -28,14 +31,9 @@ public class ProductServiceImpl implements ProductService {
     private ProductMapper productMapper;
     private final AuthService authService;
     private UserRepository userRepository;
+    private TypeRepository typeRepository;
+    private CategoryRepository categoryRepository;
 
-    private boolean containsType(String type) {
-        for (Type type1:Type.values()){
-            if (type1.name().equalsIgnoreCase(type))
-                return true;
-        }
-        return false;
-    }
     @Override
     public void addProduct(ProductRequest productRequest, String token) {
         Product product = new Product();
@@ -43,9 +41,16 @@ public class ProductServiceImpl implements ProductService {
         product.setName(productRequest.getName());
         product.setPrice(productRequest.getPrice());
         product.setCreated_date(LocalDateTime.now().toString());
-        if (!containsType(String.valueOf(productRequest.getType())))
-            throw new BadRequestException("no type with name: "+productRequest.getType()+"!");
-        product.setType(Type.valueOf(String.valueOf(productRequest.getType())));
+
+        Optional<Type> type = typeRepository.findByName(productRequest.getType());
+        if (type.isEmpty())
+            throw new NotFoundException("no type with name: "+productRequest.getType(), HttpStatus.BAD_REQUEST);
+        product.setType(type.get());
+
+        Optional<Category> category = categoryRepository.findByName(productRequest.getCategory());
+        if (category.isEmpty())
+            throw new NotFoundException("no category with name: "+productRequest.getCategory(), HttpStatus.BAD_REQUEST);
+        product.setCategory(category.get());
         productRepository.save(product);
     }
 
@@ -72,15 +77,31 @@ public class ProductServiceImpl implements ProductService {
         product.get().setName(productRequest.getName());
         product.get().setDescription(productRequest.getDescription());
         product.get().setPrice(productRequest.getPrice());
-        if (!containsType(String.valueOf(productRequest.getType())))
-            throw new BadRequestException("no type with name: "+productRequest.getType()+"!");
-        product.get().setType(Type.valueOf(String.valueOf(productRequest.getType())));
+        Optional<Type> type = typeRepository.findByName(productRequest.getType());
+        if (type.isEmpty())
+            throw new NotFoundException("no type with name: "+productRequest.getType(), HttpStatus.BAD_REQUEST);
+        product.get().setType(type.get());
+
+        Optional<Category> category = categoryRepository.findByName(productRequest.getCategory());
+        if (category.isEmpty())
+            throw new NotFoundException("no category with name: "+productRequest.getCategory(), HttpStatus.BAD_REQUEST);
+        product.get().setCategory(category.get());
         productRepository.save(product.get());
     }
 
     @Override
     public List<ProductResponse> getAll() {
             return productMapper.toDtoS(productRepository.findAll());
+    }
+
+    @Override
+    public void update(String itemId, Integer quantity, org.springframework.security.core.userdetails.User user) {
+
+    }
+
+    @Override
+    public Product findOne(String productId) {
+        return null;
     }
 
     @Override
