@@ -49,6 +49,9 @@ public class User implements UserDetails {
     @OneToOne(cascade = CascadeType.ALL)
     private Customer customer;
 
+    @OneToMany(mappedBy = "user")
+    private List<Review> reviews;
+
 
     @Override
     public String getPassword() {

@@ -15,14 +15,17 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reviewId;
 
-    private Long productId;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    private Long userId;
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
 
     private int rating;
 
     private String comment;
 
     private LocalDateTime createdAt;
-
 }
