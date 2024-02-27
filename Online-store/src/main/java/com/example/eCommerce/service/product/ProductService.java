@@ -24,4 +24,6 @@ public interface ProductService {
     Product findOne(String productId);
 
     void buy(Long id, String token);
+
+    List<ProductResponse> compare(Long fId, Long sId);
 }

@@ -24,7 +24,7 @@ public class ProductController {
         productService.deleteProduct(id);
     }
 
-    @GetMapping("/find")
+    @GetMapping("/find/{id}")
     public ProductResponse getById(@PathVariable Long id){
         return productService.getById(id);
     }
@@ -42,5 +42,10 @@ public class ProductController {
     @PostMapping("/buy/{productId}")
     public void buy(@PathVariable Long id, @RequestHeader("Authorization") String token){
         productService.buy(id,token);
+    }
+
+    @GetMapping("/compare/{id}/{id}")
+    public List<ProductResponse> compare(@PathVariable Long fId, @PathVariable Long sId){
+        return productService.compare(fId,sId);
     }
 }

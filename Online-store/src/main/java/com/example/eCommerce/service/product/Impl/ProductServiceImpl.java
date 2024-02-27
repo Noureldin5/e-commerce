@@ -51,6 +51,7 @@ public class ProductServiceImpl implements ProductService {
         if (category.isEmpty())
             throw new NotFoundException("no category with name: "+productRequest.getCategory(), HttpStatus.BAD_REQUEST);
         product.setCategory(category.get());
+
         productRepository.save(product);
     }
 
@@ -86,6 +87,7 @@ public class ProductServiceImpl implements ProductService {
         if (category.isEmpty())
             throw new NotFoundException("no category with name: "+productRequest.getCategory(), HttpStatus.BAD_REQUEST);
         product.get().setCategory(category.get());
+
         productRepository.save(product.get());
     }
 
@@ -116,6 +118,24 @@ public class ProductServiceImpl implements ProductService {
             products = user.getCustomer().getProducts();
         products.add(product.get());
         user.getCustomer().setProducts(products);
+
         userRepository.save(user);
+    }
+
+    @Override
+    public List<ProductResponse> compare(Long fId, Long sId) {
+        Optional<Product> productF = productRepository.findById(fId);
+        if(productF.isEmpty())
+            throw new NotFoundException("the product with id: "+fId+" is empty!", HttpStatus.BAD_REQUEST);
+
+        Optional<Product> productS = productRepository.findById(sId);
+        if(productS.isEmpty())
+            throw new NotFoundException("the product with id: "+sId+" is empty!", HttpStatus.BAD_REQUEST);
+
+        List<ProductResponse> compareList=new ArrayList<>();
+        compareList.add(productMapper.toDto(productF.get()));
+        compareList.add(productMapper.toDto(productS.get()));
+
+        return compareList;
     }
 }
