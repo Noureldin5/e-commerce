@@ -1,5 +1,6 @@
 package com.example.eCommerce.controller;
 
+import com.example.eCommerce.dto.Comparison.ComparisonRequest;
 import com.example.eCommerce.dto.Product.ProductRequest;
 import com.example.eCommerce.dto.Product.ProductResponse;
 import com.example.eCommerce.service.product.ProductService;
@@ -44,8 +45,8 @@ public class ProductController {
         productService.buy(id,token);
     }
 
-    @GetMapping("/compare/{id}/{id}")
-    public List<ProductResponse> compare(@PathVariable Long fId, @PathVariable Long sId){
-        return productService.compare(fId,sId);
+    @PostMapping("/additionalInfo")
+    public void additionalInfo(@PathVariable Long id,@RequestBody ComparisonRequest comparisonRequest){
+        productService.additionalInfo(id,comparisonRequest);
     }
 }
