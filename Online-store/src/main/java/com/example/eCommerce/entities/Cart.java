@@ -19,7 +19,7 @@ public class Cart {
     private String cartItem;
 
     @ManyToOne
-    @JoinColumn(name = "user_id") // column name in the 'carts' table
+    @JoinColumn(name = "user_id")
     private User user;
 
     @OneToMany(mappedBy = "cart")

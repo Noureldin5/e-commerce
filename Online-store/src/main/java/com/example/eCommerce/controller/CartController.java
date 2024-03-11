@@ -66,7 +66,6 @@ public class CartController {
     public void deleteItem(@PathVariable("itemId") String itemId, Principal principal) {
         User user = userService.findOne(principal.getName());
         cartService.delete(itemId, user);
-        // flush memory into DB
     }
 
 
