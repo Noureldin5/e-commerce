@@ -1,5 +1,6 @@
 package com.example.eCommerce.service.product;
 
+import com.example.eCommerce.dto.Comparison.ComparisonRequest;
 import com.example.eCommerce.dto.Product.ProductRequest;
 import com.example.eCommerce.dto.Product.ProductResponse;
 import com.example.eCommerce.entities.Product;
@@ -25,5 +26,5 @@ public interface ProductService {
 
     void buy(Long id, String token);
 
-    List<ProductResponse> compare(Long fId, Long sId);
+    void additionalInfo(Long id, ComparisonRequest comparisonRequest);
 }

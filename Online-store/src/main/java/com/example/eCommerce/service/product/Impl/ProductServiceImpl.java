@@ -1,6 +1,7 @@
 package com.example.eCommerce.service.product.Impl;
 
 import com.example.eCommerce.dto.Product.ProductRequest;
+import com.example.eCommerce.dto.Comparison.ComparisonRequest;
 import com.example.eCommerce.dto.Product.ProductResponse;
 import com.example.eCommerce.entities.Category;
 import com.example.eCommerce.entities.Product;
@@ -123,19 +124,32 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductResponse> compare(Long fId, Long sId) {
-        Optional<Product> productF = productRepository.findById(fId);
-        if(productF.isEmpty())
-            throw new NotFoundException("the product with id: "+fId+" is empty!", HttpStatus.BAD_REQUEST);
+    public void additionalInfo(Long id, ComparisonRequest comparisonRequest) {
+        Optional<Product> product = productRepository.findById(id);
+        if(product.isEmpty())
+            throw new NotFoundException("the product with id: "+id+" is empty!", HttpStatus.BAD_REQUEST);
+        product.get().setSalesPackage(comparisonRequest.getSalesPackage());
+        product.get().setModelNumber(comparisonRequest.getModelNumber());
+        product.get().setSecondaryMaterial(comparisonRequest.getSecondaryMaterial());
+        product.get().setConfiguration(comparisonRequest.getConfiguration());
+        product.get().setUpholsteryMaterial(comparisonRequest.getUpholsteryMaterial());
+        product.get().setUpholsteryColor(comparisonRequest.getUpholsteryColor());
+        product.get().setFillingMaterial(comparisonRequest.getFillingMaterial());
+        product.get().setFinishType(comparisonRequest.getFinishType());
+        product.get().setAdjustableHeadrest(comparisonRequest.getAdjustableHeadrest());
+        product.get().setMaximumLoadCapacity(comparisonRequest.getMaximumLoadCapacity());
+        product.get().setOriginOfManufacture(comparisonRequest.getOriginOfManufacture());
+        product.get().setWidth(comparisonRequest.getWidth());
+        product.get().setHeight(comparisonRequest.getHeight());
+        product.get().setWeight(comparisonRequest.getWeight());
+        product.get().setSeatHeight(comparisonRequest.getSeatHeight());
+        product.get().setLegHeight(comparisonRequest.getLegHeight());
+        product.get().setWarrantySummary(comparisonRequest.getWarrantySummary());
+        product.get().setWarrantyServiceType(comparisonRequest.getWarrantyServiceType());
+        product.get().setCoveredInWarranty(comparisonRequest.getCoveredInWarranty());
+        product.get().setNotCoveredInWarranty(comparisonRequest.getNotCoveredInWarranty());
+        product.get().setDomesticWarranty(comparisonRequest.getDomesticWarranty());
 
-        Optional<Product> productS = productRepository.findById(sId);
-        if(productS.isEmpty())
-            throw new NotFoundException("the product with id: "+sId+" is empty!", HttpStatus.BAD_REQUEST);
-
-        List<ProductResponse> compareList=new ArrayList<>();
-        compareList.add(productMapper.toDto(productF.get()));
-        compareList.add(productMapper.toDto(productS.get()));
-
-        return compareList;
+        productRepository.save(product.get());
     }
 }
