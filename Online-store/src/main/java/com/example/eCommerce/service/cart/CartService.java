@@ -1,5 +1,7 @@
 package com.example.eCommerce.service.cart;
 
+import com.example.eCommerce.dto.Cart.CartRequest;
+import com.example.eCommerce.dto.Cart.CartResponse;
 import com.example.eCommerce.entities.Cart;
 import com.example.eCommerce.entities.Product;
 import org.springframework.security.core.userdetails.User;
@@ -7,12 +9,14 @@ import org.springframework.security.core.userdetails.User;
 import java.util.Collection;
 
 public interface CartService {
-    Cart getCart(User user);
 
+    void add(CartRequest request, String token);
 
-    void delete(String itemId, User user);
+    void update(CartRequest request, String token);
 
-    void checkout(User user);
+    void buy(String token);
 
-    void mergeLocalCart(Collection<Product> productInOrders, User user);
+    CartResponse get(String token);
+
+    void delete(CartRequest request, String token);
 }
