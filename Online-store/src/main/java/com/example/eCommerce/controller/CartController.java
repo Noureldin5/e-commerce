@@ -5,6 +5,8 @@ import com.example.eCommerce.dto.Cart.CartResponse;
 import com.example.eCommerce.repositories.ProductRepository;
 import com.example.eCommerce.service.cart.CartService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 

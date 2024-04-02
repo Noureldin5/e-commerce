@@ -84,6 +84,10 @@ public class User implements UserDetails {
     }
 
 
+    public Order getCart() {
+        return null;
+    }
 
-
+    public void setCart(Cart cart) {
+    }
 }

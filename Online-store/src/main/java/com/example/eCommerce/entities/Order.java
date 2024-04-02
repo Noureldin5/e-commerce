@@ -1,13 +1,19 @@
 package com.example.eCommerce.entities;
 
-import java.util.Collection;
+import com.example.eCommerce.dto.Product.ProductResponse;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.util.List;
+
+@Getter
+@Setter
 public class Order {
 
     private Long id;
     private String serial_number;
 
-    public Collection<Product> getProducts() {
+    public List<ProductResponse> getProducts() {
         return null;
     }
 
